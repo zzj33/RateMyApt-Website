@@ -1,6 +1,8 @@
 # RateMyApt application
 # Instructions:
+``
 pip install flask flask_sqlalchemy pymysql pyyaml
+``
 # Run:
 powershell: <br>
 $env:FLASK_APP="app"<br>
