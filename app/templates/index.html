@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Demo: RateMyApt</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
+
+    </head>
+
+    <body>
+
+    <main role="main" class="container extra-bottom">
+      <h1 class="mt-5">RateMyApt Demo App</h1>
+      <p><mark>Find your apartment NOW!!</mark></p>
+    </main>
+    
+
+    <div class="container">    
+        <form method="GET" action="/search/">
+            <input type="text" name="query" class="form-control" placeholder="Enter Apt name here..." />
+            <button type="submit" class="btn btn-light-primary font-weight-bold"></button>
+        </form>
+        <!-- Button trigger modal -->
+        <div style="text-align: left;">
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New LivePlace">Add a LivePlace</button>
+        </div>
+        <div style="text-align: left;">
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#sp-modal" data-source="Run Procedure">Find LeaseOptions</button>
+        </div>
+        <!-- Button Query1 -->
+        <!-- <span style="text-align: left;">
+            <form method="get" action="/q1/">
+                <button type="submit">Q1</button>
+            </form>
+        </span>
+        <span> -->
+        <!-- Button Query2 -->
+        <!-- <span style="text-align: left;">
+            <form method="get" action="/q2/">
+                <button type="submit">Q2</button>
+            </form>
+        </span> -->
+    </div>
+
+    <div class="modal fade" id="sp-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Label">Find Apartments with leaseOption</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">leaseOption</span>
+                    <input type="text" class="form-control sp-input" placeholder="Enter leaseOption" aria-label="sp-entry" aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="submit-sp" type="button" class="btn btn-primary">Submit</button>
+               
+            </div>
+        </div>
+    </div>
+    </div>
+        
+    <div class="modal fade" id="task-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Label">Add a LivePlace</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">Name</span>
+                    <input type="text" class="form-control name-input" placeholder="Name of your LivePlace" aria-label="LP-name" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">Address</span>
+                    <input type="text" class="form-control address-input" placeholder="Address of your LivePlace" aria-label="LP-addrress" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">Price($)</span>
+                    <input type="text" class="form-control price-input" placeholder="Price of your LivePlace" aria-label="LP-price" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">Rating</span>
+                    <input type="text" class="form-control rating-input" placeholder="Rating of your LivePlace" aria-label="LP-rating" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">LeaseOption</span>
+                    <input type="text" class="form-control leaseOption-input" placeholder="LeaseOption of your LivePlace" aria-label="LP-leaseOption" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">Website</span>
+                    <input type="text" class="form-control website-input" placeholder="Website of your LivePlace" aria-label="LP-website" aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="submit-LivePlace" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+    <!--Todo Table-->
+    <div class="container table-responsive">          
+    <table style="width: 1000px;" class="table">
+        <thead>
+        <tr>
+            <th class="LPId">#</th>
+            <th class="LPName">Name</th>
+            <th class="address">Address</th>
+            <th class="price">Price($)</th>
+            <th class="rating">Rating</th>
+            <th class="leaseOption">LeaseOption</th>
+            <th class="website">Website</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{item.LPId}}</td>
+                <td>{{item.LPName}}</td>
+                <td>{{item.address}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.rating}}</td>
+                <td>{{item.leaseOption}}</td>
+                <td style="width: 300px;">{{item.website}}</td>
+
+                <!-- {% if item.status == "In Progress" %}
+                    <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
+                {%endif%}
+                {% if item.status == "Todo" %}
+                    <td><button type="button" class="btn btn-outline-secondary btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
+                {%endif%}
+                {% if item.status == "Complete" %}
+                    <td><button type="button" class="btn btn-outline-success btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
+                {%endif%} -->
+                
+                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.LPId}}" data-name="{{item.LPName}}" data-address="{{item.address}}" data-price="{{item.price}}" data-rating="{{item.rating}}" data-leaseoption="{{item.leaseOption}}" data-website="{{item.website}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
+
+                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.LPId}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    {{ paginate.links }}
+    </div>
+    
+    <hr>
+
+
+
+
+    <footer class="footer">
+      <div class="container">
+            <p class="text-muted"><small>App developed for CS411 UIUC</p>
+      </div>
+    </footer>
+  </body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/modal.js') }}"></script>
+
+</html>
